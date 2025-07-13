@@ -29,14 +29,19 @@ function simulateSummary(text: string): string {
 // Improved Urdu translator
 function translateToUrdu(summary: string): string {
   return summary
-    .replace(/[.,!?]/g, "") // Remove punctuation
+    .replace(/[.,!?]/g, "") 
     .split(" ")
     .map((word) => urduDict[word.toLowerCase()] || word)
     .join(" ");
 }
+type BlogEntry = {
+  url: string;
+  text: string;
+  summary: string;
+};
 
  // Save to MongoDB and Supabase
- async function saveToDB({ url, text, summary }: any) {
+ async function saveToDB({ url, text, summary }: BlogEntry) {
    await connectMongo();
    await Blog.create({ url, text, summary });
    await supabase.from("summaries").insert([{ url, summary }]);
