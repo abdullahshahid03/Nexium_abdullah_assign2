@@ -3,37 +3,38 @@ import * as cheerio from "cheerio";
 import { connectMongo, Blog } from "@/lib/mongodb";
 import { supabase } from "@/lib/supabase";
 
-// Urdu dictionary (expand as needed)
-const urduDict: Record<string, string> = {
-  "this": "یہ",
-  "blog": "بلاگ",
-  "is": "ہے",
-  "about": "کے بارے میں",
-  "technology": "ٹیکنالوجی",
-  "health": "صحت",
-  "education": "تعلیم",
-  "sports": "کھیل",
-  "discusses": "ذکر کرتا ہے",
-  "various": "مختلف",
-  "topics": "موضوعات"
-};
+
 
 // Simulated summary (static logic)
 function simulateSummary(text: string): string {
-  if (text.toLowerCase().includes("technology")) return "This blog is about technology.";
-  if (text.toLowerCase().includes("health")) return "This blog is about health.";
-  if (text.toLowerCase().includes("sports")) return "This blog is about sports.";
-  return "This blog discusses various topics.";
+  if (text.toLowerCase().includes("technology")) 
+    return "This blog provides insights into modern technology trends and innovations.";
+  if (text.toLowerCase().includes("health")) 
+    return "This blog discusses health tips and wellness strategies.";
+  if (text.toLowerCase().includes("sports")) 
+    return "This blog is highlighting recent sports events and athlete performances.";
+  return "This blog covers a veriety of useful topics and discussions including technology, health, and education.";
 }
 
-// Improved Urdu translator
+
 function translateToUrdu(summary: string): string {
-  return summary
-    .replace(/[.,!?]/g, "") 
-    .split(" ")
-    .map((word) => urduDict[word.toLowerCase()] || word)
-    .join(" ");
+  const phrasesDict: Record<string, string> = {
+    "This blog provides insights into modern technology trends and innovations.": 
+      "یہ بلاگ جدید ٹیکنالوجی کے رجحانات اور اختراعات پر روشنی ڈالتا ہے۔",
+
+    "This blog covers essential health tips and wellness strategies to maintain a healthy lifestyle.":
+      "یہ بلاگ صحت مند طرزِ زندگی کے لیے اہم مشورے اور تندرستی کے طریقے بیان کرتا ہے۔",
+
+    "This blog highlights the latest sports events, news, and athlete achievements around the world.":
+      "یہ بلاگ دنیا بھر میں تازہ ترین کھیلوں کے مقابلے، خبریں اور کھلاڑیوں کی کامیابیوں پر روشنی ڈالتا ہے۔",
+
+    "This blog explores various useful topics including technology, health, sports, and education.":
+      "یہ بلاگ ٹیکنالوجی، صحت، کھیلوں اور تعلیم سمیت مختلف مفید موضوعات کو بیان کرتا ہے۔"
+  };
+
+  return phrasesDict[summary] || "یہ بلاگ مختلف موضوعات پر مشتمل ہے۔";
 }
+
 type BlogEntry = {
   url: string;
   text: string;
