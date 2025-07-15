@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Blog Summariser",
-  description: "A simple app to summarise blogs",
+  title: "QuikSum - Blog Summariser",
+  description: "Summarise blogs quickly and easily with QuikSum.",
 };
 
 export default function RootLayout({
@@ -26,7 +26,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+       
         <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="shortcut icon" href="/favicon.png" />
+        <meta name="theme-color" content="#ffffff" />
+        <title>QuikSum - Blog Summariser</title>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Navbar />
